@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
+const path = require('path');
+
 const bookRoutes = require("./routes/books")
 const userRoutes = require('./routes/user');
 
-mongoose.connect('mongodb+srv://diegs:GameHart17@cluster0.wj4zs.mongodb.net/',
-    { useNewUrlParser: true,
-      useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://diegs:GameHart17@cluster0.wj4zs.mongodb.net/')
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
@@ -22,18 +22,6 @@ app.use((req, res, next) => {
 
 app.use('/api/books', bookRoutes)
 app.use('/api/auth', userRoutes);
-
-// app.post("/api/auth/signup", (req, res) => {
-//     const body = req.body
-//     res.send("Sign Up")
-// });
-
-// app.post("/api/auth/login", (req, res) => {
-//     const body = req.body
-//     res.send({
-//         UserId: "123",
-//         token: "token"
-//     });
-// });
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
