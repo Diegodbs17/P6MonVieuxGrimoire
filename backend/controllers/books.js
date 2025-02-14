@@ -2,6 +2,7 @@ const Book = require('../models/book');
 const fs = require('fs');
 const sharp = require('sharp');
 const path = require('path');
+sharp.cache(false);
 
 exports.createBook = (req, res, next) => {
     const bookObject = JSON.parse(req.body.book);
