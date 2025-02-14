@@ -1,6 +1,5 @@
 const Joi = require("joi");
 
-// Schéma de validation pour la création et modification d'un livre
 const bookSchema = Joi.object({
     title: Joi.string().min(3).max(100).required(),
     author: Joi.string().min(3).max(100).required(),
@@ -13,17 +12,15 @@ const bookSchema = Joi.object({
         })
     ).optional(),
     imageUrl: Joi.string().uri().optional(),
-    userId: Joi.string().optional(), // Autorise mais ne le rend pas obligatoire
-    averageRating: Joi.number().min(0).max(5).optional() // Autorise la moyenne des notes
+    userId: Joi.string().optional(),
+    averageRating: Joi.number().min(0).max(5).optional()
 });
 
-// Schéma de validation pour l'ajout d'une note
 const ratingSchema = Joi.object({
     userId: Joi.string().required(),
     rating: Joi.number().integer().min(0).max(5).required(),
 });
 
-// Middleware générique de validation
 const validateBook = (req, res, next) => {
     const bookData = req.body.book ? JSON.parse(req.body.book) : req.body;
     console.log("Données reçues pour validation :", bookData);
@@ -37,7 +34,6 @@ const validateBook = (req, res, next) => {
 
     next();
 };
-
 
 const validateRating = (req, res, next) => {
     const { error } = ratingSchema.validate(req.body, { abortEarly: false });

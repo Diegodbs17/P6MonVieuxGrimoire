@@ -1,6 +1,5 @@
 const Joi = require("joi");
 
-// Schéma de validation pour l'inscription
 const signupSchema = Joi.object({
     email: Joi.string().email().required().messages({
         "string.email": "L'email doit être valide.",
@@ -13,7 +12,6 @@ const signupSchema = Joi.object({
     })
 });
 
-// Schéma de validation pour la connexion
 const loginSchema = Joi.object({
     email: Joi.string().email().required().messages({
         "string.email": "L'email doit être valide.",
@@ -24,7 +22,6 @@ const loginSchema = Joi.object({
     })
 });
 
-// Middleware générique de validation
 const validateSignup = (req, res, next) => {
     console.log("Données reçues pour validation :", req.body); // 🔍 Vérifie si req.body est bien reçu
 
@@ -37,7 +34,6 @@ const validateSignup = (req, res, next) => {
 
     next();
 };
-
 
 const validateLogin = (req, res, next) => {
     console.log("Données reçues pour login :", req.body); // 🔍 Affiche les données envoyées
